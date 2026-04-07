@@ -1,0 +1,60 @@
+.sk-image,
+.sk-line {
+  background: #e0e0e0;
+  position: relative;
+  overflow: hidden;
+}
+
+.sk-image::after,
+.sk-line::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.6),
+    transparent
+  );
+  animation: skShimmer 1.5s infinite;
+}
+
+@keyframes skShimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.sk-card {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.sk-image {
+  height: 215px;
+  width: 100%;
+}
+
+.sk-content {
+  padding: 15px;
+}
+
+.sk-line {
+  height: 14px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.sk-title {
+  width: 85%;
+  height: 20px;
+}
+.sk-location {
+  width: 60%;
+}
+.sk-price {
+  width: 40%;
+  margin-top: 20px;
+}

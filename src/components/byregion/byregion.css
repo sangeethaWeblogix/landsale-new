@@ -1,0 +1,383 @@
+.find_map_location {
+  background-image: url("/images/banner_bg_single.jpg");
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.bg_color_1 {
+  background-color: #f7f4f4;
+}
+
+.bg_color_2 {
+  background-color: #f9f5f6;
+}
+
+.bg_color_3 {
+  background-color: #faf7f7;
+}
+
+.section-top-map .wrap-map .dynamic-title {
+  font-weight: normal;
+  font-size: 40px;
+  line-height: 50px;
+  margin-top: 25px;
+  color: #ffffff;
+
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.section-top-map .wrap-map {
+  width: 100%;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  /* FIXED */
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* DARK OVERLAY */
+.section-top-map .wrap-map::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(59, 59, 59, 0.3);
+  /* adjust darkness here */
+  z-index: 1;
+}
+
+.slider_new .box-title .title {
+  text-transform: inherit;
+  color: #000000;
+  letter-spacing: 0;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 26px;
+  font-weight: 600;
+  font-family: "Be Vietnam Pro", sans-serif;
+}
+
+.homelengo-categories {
+  padding: 30px 24px 24px 24px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 27px;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+  position: relative;
+  z-index: 1;
+  border: 1px solid #e4e4e4;
+}
+
+.homelengo-categories.active,
+.homelengo-categories:hover {
+  box-shadow: 0px 30px 40px 0px rgba(0, 0, 0, 0.1019607843);
+  border-color: transparent;
+}
+
+.flat-categories-1 .col-lg-3, .browse-region-section .col-lg-3 {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.slider_new .homelengo-categories {
+  overflow: hidden;
+  padding: 0;
+  border: none;
+  margin-bottom: 20px;
+}
+
+.slider_new .box-title.style-1 {
+  margin-bottom: 15px;
+  max-width: 100%;
+  text-align: center;
+}
+
+.slider_new .image_card {
+  min-height: 200px;
+  max-height: 200px;
+  overflow: hidden;
+}
+
+.slider_new .image_card img {
+  width: auto;
+  height: auto;
+  display: block;
+  border-radius: 0;
+  max-height: 210px;
+  min-height: 210px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* .slider_new .image_card img {
+            object-fit: cover;
+            height: 100%;
+            transform: scale(1.3);
+        } */
+
+.slider_new .info_content {
+  padding: 15px;
+  text-align: start;
+}
+
+.slider_new .info_content h4 {
+  letter-spacing: 0;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 25px;
+  color: #000;
+}
+
+.lot-count {
+  font-weight: 300;
+  color: #7a7a7a;
+  font-size: 13px;
+}
+
+.slider_new .info_content p.location {
+  color: #626262;
+  margin-top: 2px;
+  margin-bottom: 15px;
+  font-size: 13px;
+  display: block;
+  font-weight: 300;
+  letter-spacing: -0.5px;
+}
+
+.info_content .btn-primary {
+  color: #fff;
+  cursor: pointer;
+  background: #2f4f3f;
+  border: none;
+  border-radius: 8px;
+  padding: 7px 15px;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.slider_new .info_content .price .btn-primary i {
+  font-size: 10px;
+  margin-left: 10px;
+}
+
+.slider_new .info_content .price {
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 0;
+  display: flex;
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+}
+.slider_new .info_content .price small {
+  display: block;
+  font-family: "Zodiak", serif;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.slider_new .info_content .price .price_data {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.slider_new .info_content .price .sqft_data {
+}
+
+.slider_new .info_content .price .sqft_data .icon {
+  color: #d59147;
+}
+
+.slider_new .info_content .buttons button {
+  width: 100%;
+  border: none;
+}
+
+.slider_new .round-toggle {
+  color: #2f4f3f;
+}
+
+.slider_new .info_content .buttons button.btn-primary {
+  background: #d7e1d7;
+  color: #000;
+}
+
+.slider_new .info_content .buttons button.btn-outline {
+  background: #f3ede8;
+  color: #000;
+}
+
+.flat-section {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+.browse-region-section {
+  padding: 25px 0 48px;
+  background: #fff;
+}
+
+.browse-region-title {
+  text-transform: inherit;
+  color: #000000;
+  letter-spacing: 0;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 26px;
+  font-weight: 600;
+  font-family: "Be Vietnam Pro", sans-serif;
+}
+
+.side-sticky-img {
+  position: sticky;
+  top: 100px;
+  margin-top: 40px;
+}
+
+.side-sticky-img img {
+  width: 100%;
+  max-height: calc(100vh - 20px);
+  object-fit: cover;
+  display: block;
+  border-radius: 15px;
+}
+
+.region-card {
+  position: relative;
+  display: block;
+  border-radius: 6px;
+  overflow: hidden;
+  text-decoration: none;
+  height: 100%;
+  box-shadow: none;
+}
+
+.region-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.region-card::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 46%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0));
+  pointer-events: none;
+}
+
+.region-card-title {
+  z-index: 2;
+  text-align: center;
+  color: #fff;
+  background-color: #2f4f3fba;
+  margin: 0;
+  padding: 10px;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.2;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  letter-spacing: 0;
+}
+
+.view-all-regions-wrap {
+  text-align: center;
+  margin-top: 24px;
+}
+
+.view-all-regions-btn {
+  padding: 10px 30px;
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+  background: #fff;
+  color: #3a3a3a;
+  /* font-family: "Geologica", sans-serif; */
+  font-size: 18px;
+  font-weight: 300;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: start;
+  gap: 10px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.view-all-regions-btn:hover {
+  color: #3a3a3a;
+  border-color: #d4d4d4;
+  background: #fafafa;
+}
+
+.view-all-regions-btn svg {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
+}
+
+.all-listing-button i {
+  font-size: 10px;
+  margin-left: 10px;
+}
+
+.all-listing-button {
+  color: #000;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #e3e3e3;
+  border-radius: 8px;
+  margin-top: 20px;
+  padding: 10px 30px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+@media (max-width: 991.98px) {
+  .browse-region-title {
+    font-size: 36px;
+  }
+
+  .region-card {
+    height: 120px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .browse-region-section {
+    padding: 36px 0 24px;
+  }
+
+  .browse-region-title {
+    font-size: 30px;
+    margin-bottom: 22px;
+  }
+
+  .region-card {
+    height: 180px;
+  }
+
+  .view-all-regions-btn {
+    min-width: 200px;
+    height: 48px;
+    font-size: 16px;
+  }
+}
