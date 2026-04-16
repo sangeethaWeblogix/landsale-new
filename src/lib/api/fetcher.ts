@@ -4,6 +4,8 @@ export async function apiFetch<T>(
   path: string,
   options: RequestInit = {},
 ): Promise<T> {
+  const fullUrl = `${API_CONFIG.API_BASE_URL}${path}`;
+  console.log("Full API URL:", fullUrl); // இதை add பண்ணுங்க
   const res = await fetch(`${API_CONFIG.API_BASE_URL}${path}`, {
     ...options,
     headers: {
@@ -12,6 +14,7 @@ export async function apiFetch<T>(
     },
     next: { revalidate: 300 },
   });
+  console.log("Status:", res.status); // Status பாருங்க
 
   const contentType = res.headers.get("content-type");
 

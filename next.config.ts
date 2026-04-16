@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "www.landsales.com.au",
+        hostname: "www.admin.landsales.com.au",
         pathname: "/wp-content/uploads/**",
       },
     ],

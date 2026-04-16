@@ -8,6 +8,8 @@ export async function GET() {
     const data: StateCountResponse = await apiFetch(API_ENDPOINTS.StateCount, {
       method: "GET",
     });
+
+    
     return NextResponse.json(data);
   } catch (err) {
     return NextResponse.json({ success: false, data: [] }, { status: 500 });

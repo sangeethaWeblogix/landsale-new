@@ -95,7 +95,8 @@ export default function LandPage({
             <h2 className="browse-region-title">
               Browse Land for Sale By Region
             </h2>
-
+            "
+             
             <div className="row g-4 justify-content-center">
               {regions.regions.map((item: any) => (
                 <div className="col-12 col-sm-6 col-lg-3" key={item.id}>
@@ -106,7 +107,7 @@ export default function LandPage({
                     <img
                       src={
                         item.image ||
-                        "https://www.landsales.com.au/wp-content/uploads/2025/03/2530-huntley-illawarra-new-south-wales.jpg"
+                        "https://www.admin.landsales.com.au/wp-content/uploads/2025/03/2530-huntley-illawarra-new-south-wales.jpg"
                       }
                       alt={item.name}
                     />
