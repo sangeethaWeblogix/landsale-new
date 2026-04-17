@@ -1,4 +1,4 @@
-import { parseSlug } from "@/lib/parseSlug";
+ import { parseSlug } from "@/lib/parseSlug";
 import Bystate from "@/components/bystate/Bystate";
 import Byregion from "@/components/byregion/Byregion";
 import Suburbs from "@/components/suburbs/Suburbs";
@@ -44,31 +44,20 @@ export default async function Page({ params }: { params: Params }) {
   }
 
   if (state && !region && !suburb && !isSuburbsPage) {
-    const query = new URLSearchParams({
-      featured: "yes",
-      limit: "8",
-      state: state,
-    }).toString();
+    const [estatesRes, regionsRes, landRes] = await Promise.all([
+      fetch(`${SITE_URL}/api/lfs/estate-list?featured=yes&limit=8&state=${state}`),
+      fetch(`${SITE_URL}/api/lfs/state-based-region?state=${state}`),
+      fetch(`${SITE_URL}/api/lfs/land-list?state=${state}&limit=6&category=land`),
+    ]);
 
-    const res = await fetch(`${SITE_URL}/api/lfs/estate-list?${query}`);
-
-    const featuredEstates = await res.json();
-
-    const regionsRes = await fetch(
-      `${SITE_URL}/api/lfs/state-based-region?state=${state}`,
-    );
-
-    const regionsData = await regionsRes.json();
-
-    const landRes = await fetch(
-      `${SITE_URL}/api/lfs/land-list?state=${state}&limit=6&category=land`,
-    );
-
-    const landList = await landRes.json();
+    const [featuredEstates, regionsData, landList] = await Promise.all([
+      estatesRes.json(),
+      regionsRes.json(),
+      landRes.json(),
+    ]);
 
     return (
       <Bystate
-        // state={state}
         stateCode={stateCodeFromSlug ?? ""}
         featuredEstates={featuredEstates}
         regions={regionsData}
@@ -78,10 +67,25 @@ export default async function Page({ params }: { params: Params }) {
   }
 
   if (state && region && !suburb && !isSuburbsPage) {
+    const [suburbsRes, estatesRes, landRes] = await Promise.all([
+      fetch(`${SITE_URL}/api/lfs/region-based-suburb?state=${state}&region=${region}`),
+      fetch(`${SITE_URL}/api/lfs/estate-list?featured=yes&limit=6&state=${state}&region=${region}`),
+      fetch(`${SITE_URL}/api/lfs/land-list?state=${state}&region=${region}&limit=6&category=land`),
+    ]);
+
+    const [suburbsData, featuredEstates, landList] = await Promise.all([
+      suburbsRes.json(),
+      estatesRes.json(),
+      landRes.json(),
+    ]);
+
     return (
       <Byregion
-      // stateCode={stateCodeFromSlug}
-      // region={region}
+        stateCode={stateCodeFromSlug}
+        region={region}
+        suburbs={suburbsData}
+        featuredEstates={featuredEstates}
+        landList={landList}
       />
     );
   }
