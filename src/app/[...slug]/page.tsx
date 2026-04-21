@@ -15,7 +15,7 @@ export default async function Page({ params }: { params: Params }) {
 
   const parsed = parseSlug(slug ?? []);
 
-  const { state, region, suburb, listingType, isSuburbsPage } = parsed;
+  const { state, region, suburb, postcode, listingType, isSuburbsPage } = parsed;
 
   const stateCodeFromSlug =
     STATE_NAMES.find((s) => s.slug === state)?.code ?? "";
@@ -26,6 +26,7 @@ export default async function Page({ params }: { params: Params }) {
     if (state) baseParams.state = state;
     if (region) baseParams.region = region;
     if (suburb) baseParams.suburb = suburb;
+    if (postcode) baseParams.postcode = postcode;
 
     if (listingType === "estates") {
       return <EstateListings state={state} region={region} suburb={suburb} />;
@@ -67,6 +68,7 @@ export default async function Page({ params }: { params: Params }) {
   }
 
   if (state && region && !suburb && !isSuburbsPage) {
+    
     const [suburbsRes, estatesRes, landRes] = await Promise.all([
       fetch(`${SITE_URL}/api/lfs/region-based-suburb?state=${state}&region=${region}`),
       fetch(`${SITE_URL}/api/lfs/estate-list?featured=yes&limit=6&state=${state}&region=${region}`),
@@ -91,15 +93,24 @@ export default async function Page({ params }: { params: Params }) {
   }
 
   if (state && region && suburb && !isSuburbsPage) {
-    return (
-      <Suburbs
-      // stateCode={stateCodeFromSlug}
-      // region={region}
-      // suburb={suburb}
-      // postcode={postcode}
-      />
-    );
-  }
+     const stateSlug = STATE_NAMES.find(
+    (s) => s.code === state || s.slug === state
+  )?.slug ?? state;
+  const res = await fetch(
+    `${SITE_URL}/api/lfs/suburb-based-list?state=${stateSlug}&region=${region}&suburb=${suburb}&postcode=${postcode}`
+  );
 
+  const suburbData = await res.json();
+
+  return (
+    <Suburbs
+      state={state}
+      region={region}
+      suburb={suburb}
+      postcode={parsed.postcode}
+      data={suburbData}
+    />
+  );
+}
   return <></>;
 }

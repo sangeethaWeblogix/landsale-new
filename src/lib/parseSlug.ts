@@ -2,7 +2,7 @@ import { ListingType, ParsedSlug } from "./types";
 
 const LISTING_TYPES = new Set(["estates", "land", "townhouses", "house-land"]);
 
-export function parseSlug(segments: string[]): ParsedSlug {
+ export function parseSlug(segments: string[]): ParsedSlug {
   if (!segments?.length) return {};
 
   const segs = [...segments];
@@ -22,23 +22,25 @@ export function parseSlug(segments: string[]): ParsedSlug {
   let postcode: string | undefined;
   let isSuburbsPage = false;
 
-  for (const seg of segs) {
-    if (seg === "suburbs") {
-      isSuburbsPage = true;
-      continue;
-    }
+  // ✅ Handle /suburbs route
+  if (segs.includes("suburbs")) {
+    isSuburbsPage = true;
+    return { state, region: segs[0], isSuburbsPage };
+  }
 
-    const parts = seg.split("-");
+  // ✅ Assign region (always first)
+  region = segs[0];
+
+  // ✅ Handle suburb + postcode (second segment)
+  const suburbWithPostcode = segs[1];
+
+  if (suburbWithPostcode) {
+    const parts = suburbWithPostcode.split("-");
     const lastPart = parts[parts.length - 1];
 
     if (/^\d{4}$/.test(lastPart)) {
       postcode = lastPart;
       suburb = parts.slice(0, -1).join("-");
-      continue;
-    }
-
-    if (!region) {
-      region = seg;
     }
   }
 

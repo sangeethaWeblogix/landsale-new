@@ -24,6 +24,7 @@ export default function LandPage({
 
   const regionName = formatName(region.replace(/-/g, " "));
 
+
   const visibleSuburbs = showAllSuburbs
     ? suburbs?.suburbs
     : suburbs?.suburbs?.slice(0, 12);
@@ -104,17 +105,19 @@ export default function LandPage({
         <div className="row">
           {visibleSuburbs.map((item: any) => (
             <div className="col-lg-3" key={item.id}>
-              <a href="#" className="homelengo-categories">
+              <a href={`/${stateCode.toLowerCase()}/${region}/${item.suburb}-${item.postcode}`} className="homelengo-categories">
                 <div className="listing-card">
                   <div className="image_card">
                     <img src={item.image} alt={item.suburb} />
                   </div>
                   <div className="info_content">
-                    <h4>{item.suburb} {item.postcode}</h4>
-                    <p className="mb-2 lot-count">36 lots available</p>
+                  <h4>{formatName(item.suburb)} {item.postcode}</h4>
+                    <p className="mb-2 lot-count">{item.listing_count} lots available</p>
                     <div className="price">
                       <span className="price_data">
-                        <small>From</small>$900,000
+                        <small>From</small>₹{item.starting_price
+    ? Number(item.starting_price).toLocaleString("en-IN")
+    : "0"}
                       </span>
                       <button className="btn-primary">
                         View Details <i className="icon icon-arr-r"></i>
