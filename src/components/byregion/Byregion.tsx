@@ -107,7 +107,7 @@ export default function LandPage({
         <div className="row">
           {visibleSuburbs.map((item: any) => (
             <div className="col-lg-3" key={item.id}>
-              <a href={`/${stateSlug}/${region}/${item.suburb.toLowerCase().replace(/\s+/g, "-")}-${item.postcode}`} className="homelengo-categories">
+              <Link href={`/${stateSlug}/${region}/${item.suburb.toLowerCase().replace(/\s+/g, "-")}-${item.postcode}`} className="homelengo-categories">
                 <div className="listing-card">
                   <div className="image_card">
                     <img src={item.image} alt={item.suburb} />
@@ -127,7 +127,7 @@ export default function LandPage({
                     </div>
                   </div>
                 </div>
-              </a>
+              </Link>
             </div>
           ))}
 
