@@ -9,12 +9,14 @@ type RegionProps = {
   region: string;
   suburbs: any;
   featuredEstates: any;
+   stateSlug: string;
   landList: any; // Add this
 };
 export default function LandPage({
   stateCode,
   region,
   suburbs,
+   stateSlug, 
   featuredEstates,
   landList, // Add this
 }: RegionProps) {  
@@ -105,7 +107,7 @@ export default function LandPage({
         <div className="row">
           {visibleSuburbs.map((item: any) => (
             <div className="col-lg-3" key={item.id}>
-              <a href={`/${stateCode.toLowerCase()}/${region}/${item.suburb}-${item.postcode}`} className="homelengo-categories">
+              <a href={`/${stateSlug}/${region}/${item.suburb.toLowerCase().replace(/\s+/g, "-")}-${item.postcode}`} className="homelengo-categories">
                 <div className="listing-card">
                   <div className="image_card">
                     <img src={item.image} alt={item.suburb} />

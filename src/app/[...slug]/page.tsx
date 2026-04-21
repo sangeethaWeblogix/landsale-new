@@ -84,6 +84,7 @@ export default async function Page({ params }: { params: Params }) {
     return (
       <Byregion
         stateCode={stateCodeFromSlug}
+         stateSlug={state}
         region={region}
         suburbs={suburbsData}
         featuredEstates={featuredEstates}
