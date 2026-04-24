@@ -41,7 +41,7 @@ export default function LandPage({
       </section>
 
       {/* Featured Estates */}
-      {featuredEstates?.length > 0 && (
+      {featuredEstates?.count > 0 && (
         <section className="flat-section slider_new flat-categories-1 arrow_shadow bg_color_1">
           <div className="container">
             <div className="box-title style-1 wow fadeInUp">
@@ -49,8 +49,8 @@ export default function LandPage({
 
               <div className="row">
                 {/* Card 1 */}
-                {featuredEstates?.map((item: any) => (
-                  <div className="col-lg-3" key={item.estate_id}>
+     {featuredEstates?.data?.map((item: any) => (
+                        <div className="col-lg-3" key={item.estate_id}>
                     <Link
                       href={`/estate/${item.estate_slug}`}
                       className="homelengo-categories"
@@ -131,7 +131,7 @@ export default function LandPage({
         </section>
       )}
       {/* Featured land Listings */}
-      {featuredLands?.count > 0 && (
+      {featuredLands?.length > 0 && (
         <section className="flat-section slider_new flat-categories-1 arrow_shadow bg_color_3">
           <div className="container">
             <div className="box-title style-1 wow fadeInUp">
@@ -146,7 +146,7 @@ export default function LandPage({
                       </div>
 
                       {/* Card 1 */}
-                      {featuredLands.data.map((item: any) => (
+                      {featuredLands.map((item: any) => (
                         <div className="col-lg-4" key={item.land_id}>
                           <Link
                             href={`/land/${item.land_slug}`}
