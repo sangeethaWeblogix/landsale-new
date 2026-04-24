@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import SkeletonCard from "@/components/skeleton/SkeletonCard";
 import Link from "next/link";
+import './estate.css'
 
 type EstateListingsProps = {
   state?: string;
@@ -154,7 +155,10 @@ export default function EstateListings({
                           <img src={item.image} alt={item.estate_name} />
                         </div>
                         <div className="info_content">
-                          <h4>{item.estate_name}</h4>
+                          <div className="title_logo">
+    <h4>{item.estate_name}</h4>
+    <img src={item.logo} alt={item.estate_name} />
+  </div>
                           <p className="location">
                             <i className="icon icon-mapPin"></i>
                             {item.suburb}, {item.state_code}

@@ -53,7 +53,10 @@ export default function LandPage({
                           <img src={item.image} alt={item.estate_name} />
                         </div>
                         <div className="info_content">
-                          <h4>{item.estate_name}</h4>
+                        <div className="title_logo">
+    <h4>{item.estate_name}</h4>
+    <img src={item.logo} alt={item.estate_name} />
+  </div>
                           <p className="location">
                             <i className="icon icon-mapPin"></i>
                             {item.suburb}, {item.state_code}
@@ -121,7 +124,73 @@ export default function LandPage({
           </div>
         </section>
       )}
+ {/* Featured land Listings */}
+      <section className="flat-section slider_new flat-categories-1 arrow_shadow bg_color_3">
+        <div className="container">
+          <div className="box-title style-1 wow fadeInUp">
+            <div className="row">
+              {landList?.count > 0 && (
+                <div className="col-lg-9">
+                  <div className="row">
+                    <div className="col-lg-12">
+                      <h3 className="title text-start">
+                          Featured Land Listings in {stateCode?.toUpperCase()}
+                      </h3>
+                    </div>
 
+                    {/* Card 1 */}
+                    {landList.data.map((item: any) => (
+                      <div className="col-lg-4" key={item.land_id}>
+                        <Link
+                          href={`/land/${item.land_slug}`}
+                          className="homelengo-categories"
+                        >
+                          <div className="listing-card">
+                            <div className="image_card">
+                              <img src={item.image} alt={item.land_title} />
+                            </div>
+                            <div className="info_content">
+                              <h4>{item.land_address}</h4>
+                              <p className="location">
+                                <i className="icon icon-mapPin"></i>{" "}
+                                {item.suburb} {item.pincode}
+                              </p>
+                              <div className="price">
+                                <span className="price_data">
+                                  {" "}
+                                  {item.price}
+                                </span>
+                                <button className="btn-primary">
+                                  View Details{" "}
+                                  <i className="icon icon-arr-r"></i>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </Link>
+                      </div>
+                    ))}
+
+                    {/* Button */}
+                    {/* <div className="col-lg-12">
+                      <Link href="land" className="all-listing-button">
+                        View All Land <i className="icon icon-arr-r"></i>
+                      </Link>
+                    </div> */}
+                  </div>
+                </div>
+              )}
+
+              {/* Sidebar */}
+              <div className="col-lg-3">
+                <div className="side-sticky-img">
+                  <img src="/images/sidebar-image-03.png" alt="" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       {/* Latest land Listings */}
       <section className="flat-section slider_new flat-categories-1 arrow_shadow bg_color_3">
         <div className="container">

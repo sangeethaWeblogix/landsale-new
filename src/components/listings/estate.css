@@ -1,0 +1,15 @@
+.title_logo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title_logo h4 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.title_logo img {
+  height: 20px; /* adjust based on your design */
+  object-fit: contain;
+}
