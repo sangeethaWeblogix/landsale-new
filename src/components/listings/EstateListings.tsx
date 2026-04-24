@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import SkeletonCard from "@/components/skeleton/SkeletonCard";
 import Link from "next/link";
-import './estate.css'
+import "./estate.css";
 
 type EstateListingsProps = {
   state?: string;
@@ -111,7 +111,7 @@ export default function EstateListings({
   return (
     <>
       {/* Top Section */}
-      <section className="section-top-map find_map_location">
+      <section className="section-top-map find_map_location"> 
         <div className="wrap-map">
           <h1 className="dynamic-title">Estate Listings</h1>
         </div>
@@ -122,13 +122,19 @@ export default function EstateListings({
       <section className="flat-section slider_new flat-categories-1 arrow_shadow bg_color_1">
         <div className="container">
           <div className="box-title style-1 wow fadeInUp">
-            <h3 className="title">Estates</h3>
+                          <div className="row">
+              <div className="col-lg-9">
+                <div className="row">
+                            <div className="col-lg-12 text-center">
+    <h3 className="title">Estates</h3>
+  </div>
 
-            <div className="row">
+ 
+                 
               {loading && (
                 <>
                   {Array.from({ length: 8 }).map((_, i) => (
-                    <div className="col-lg-3 mb-4" key={i}>
+                    <div className="col-lg-4 mb-4" key={i}>
                       <SkeletonCard />
                     </div>
                   ))}
@@ -145,7 +151,7 @@ export default function EstateListings({
               {!loading &&
                 data?.count > 0 &&
                 data.data.map((item: any) => (
-                  <div className="col-lg-3" key={item.estate_id}>
+                  <div className="col-lg-4" key={item.estate_id}>
                     <Link
                       href={`/estate/${item.estate_slug}`}
                       className="homelengo-categories"
@@ -156,9 +162,9 @@ export default function EstateListings({
                         </div>
                         <div className="info_content">
                           <div className="title_logo">
-    <h4>{item.estate_name}</h4>
-    <img src={item.logo} alt={item.estate_name} />
-  </div>
+                            <h4>{item.estate_name}</h4>
+                            <img src={item.logo} alt={item.estate_name} />
+                          </div>
                           <p className="location">
                             <i className="icon icon-mapPin"></i>
                             {item.suburb}, {item.state_code}
@@ -205,6 +211,13 @@ export default function EstateListings({
                 </div>
               )}
             </div>
+            </div>
+              <div className="col-lg-3">
+                <div className="side-sticky-img">
+                  <img src="/images/sidebar-image-03.png" alt="" />
+                </div>
+              </div>
+              </div>
           </div>
         </div>
       </section>
