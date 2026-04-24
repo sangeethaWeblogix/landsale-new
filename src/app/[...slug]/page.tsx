@@ -1,4 +1,4 @@
- import { parseSlug } from "@/lib/parseSlug";
+import { parseSlug } from "@/lib/parseSlug";
 import Bystate from "@/components/bystate/Bystate";
 import Byregion from "@/components/byregion/Byregion";
 import Suburbs from "@/components/suburbs/Suburbs";
@@ -15,7 +15,8 @@ export default async function Page({ params }: { params: Params }) {
 
   const parsed = parseSlug(slug ?? []);
 
-  const { state, region, suburb, postcode, listingType, isSuburbsPage } = parsed;
+  const { state, region, suburb, postcode, listingType, isSuburbsPage } =
+    parsed;
 
   const stateCodeFromSlug =
     STATE_NAMES.find((s) => s.slug === state)?.code ?? "";
@@ -46,9 +47,13 @@ export default async function Page({ params }: { params: Params }) {
 
   if (state && !region && !suburb && !isSuburbsPage) {
     const [estatesRes, regionsRes, landRes] = await Promise.all([
-      fetch(`${SITE_URL}/api/lfs/estate-list?featured=yes&limit=8&state=${state}`),
+      fetch(
+        `${SITE_URL}/api/lfs/estate-list?featured=yes&limit=8&state=${state}`,
+      ),
       fetch(`${SITE_URL}/api/lfs/state-based-region?state=${state}`),
-      fetch(`${SITE_URL}/api/lfs/land-list?state=${state}&limit=6&category=land`),
+      fetch(
+        `${SITE_URL}/api/lfs/land-list?state=${state}&limit=6&category=land`,
+      ),
     ]);
 
     const [featuredEstates, regionsData, landList] = await Promise.all([
@@ -56,23 +61,31 @@ export default async function Page({ params }: { params: Params }) {
       regionsRes.json(),
       landRes.json(),
     ]);
-console.log("featuredEstates",featuredEstates)
+    const featuredLands = landList.featured_lands || [];
+    const nonFeaturedLands = landList.non_featured_lands || [];
     return (
       <Bystate
         stateCode={stateCodeFromSlug ?? ""}
         featuredEstates={featuredEstates}
         regions={regionsData}
         landList={landList}
+        featuredLands={featuredLands}
+        nonFeaturedLands={nonFeaturedLands}
       />
     );
   }
 
   if (state && region && !suburb && !isSuburbsPage) {
-    
     const [suburbsRes, estatesRes, landRes] = await Promise.all([
-      fetch(`${SITE_URL}/api/lfs/region-based-suburb?state=${state}&region=${region}`),
-      fetch(`${SITE_URL}/api/lfs/estate-list?featured=yes&limit=6&state=${state}&region=${region}`),
-      fetch(`${SITE_URL}/api/lfs/land-list?state=${state}&region=${region}&limit=6&category=land`),
+      fetch(
+        `${SITE_URL}/api/lfs/region-based-suburb?state=${state}&region=${region}`,
+      ),
+      fetch(
+        `${SITE_URL}/api/lfs/estate-list?featured=yes&limit=6&state=${state}&region=${region}`,
+      ),
+      fetch(
+        `${SITE_URL}/api/lfs/land-list?state=${state}&region=${region}&limit=6&category=land`,
+      ),
     ]);
 
     const [suburbsData, featuredEstates, landList] = await Promise.all([
@@ -80,38 +93,41 @@ console.log("featuredEstates",featuredEstates)
       estatesRes.json(),
       landRes.json(),
     ]);
-
+    const featuredLands = landList.featured_lands || [];
+    const nonFeaturedLands = landList.non_featured_lands || [];
     return (
       <Byregion
         stateCode={stateCodeFromSlug}
-         stateSlug={state}
+        stateSlug={state}
         region={region}
         suburbs={suburbsData}
         featuredEstates={featuredEstates}
         landList={landList}
+        featuredLands={featuredLands}
+        nonFeaturedLands={nonFeaturedLands}
       />
     );
   }
 
   if (state && region && suburb && !isSuburbsPage) {
-     const stateSlug = STATE_NAMES.find(
-    (s) => s.code === state || s.slug === state
-  )?.slug ?? state;
-  const res = await fetch(
-    `${SITE_URL}/api/lfs/suburb-based-list?state=${stateSlug}&region=${region}&suburb=${suburb}&postcode=${postcode}`
-  );
+    const stateSlug =
+      STATE_NAMES.find((s) => s.code === state || s.slug === state)?.slug ??
+      state;
+    const res = await fetch(
+      `${SITE_URL}/api/lfs/suburb-based-list?state=${stateSlug}&region=${region}&suburb=${suburb}&postcode=${postcode}`,
+    );
 
-  const suburbData = await res.json();
+    const suburbData = await res.json();
 
-  return (
-    <Suburbs
-      state={state}
-      region={region}
-      suburb={suburb}
-      postcode={parsed.postcode}
-      data={suburbData}
-    />
-  );
-}
+    return (
+      <Suburbs
+        state={state}
+        region={region}
+        suburb={suburb}
+        postcode={parsed.postcode}
+        data={suburbData}
+      />
+    );
+  }
   return <></>;
 }

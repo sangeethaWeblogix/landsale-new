@@ -8,6 +8,8 @@ type StateProps = {
   featuredEstates: any;
   regions: any;
   landList: any;
+  nonFeaturedLands: any;
+  featuredLands: any;
 };
 
 export default function LandPage({
@@ -15,6 +17,8 @@ export default function LandPage({
   featuredEstates,
   regions,
   landList,
+  nonFeaturedLands,
+  featuredLands,
 }: StateProps) {
   const stateName = STATE_NAMES.find(
     (item) => item.code === stateCode.toLowerCase(),
@@ -22,6 +26,9 @@ export default function LandPage({
 
   const formatName = (name: string) =>
     name.replace(/\b\w/g, (c) => c.toUpperCase());
+
+  console.log("featured rrr", nonFeaturedLands);
+
   return (
     <>
       {/* Top Section */}
@@ -34,7 +41,7 @@ export default function LandPage({
       </section>
 
       {/* Featured Estates */}
-      {featuredEstates?.count > 0 && (
+      {featuredEstates?.length > 0 && (
         <section className="flat-section slider_new flat-categories-1 arrow_shadow bg_color_1">
           <div className="container">
             <div className="box-title style-1 wow fadeInUp">
@@ -42,7 +49,7 @@ export default function LandPage({
 
               <div className="row">
                 {/* Card 1 */}
-                {featuredEstates?.data?.map((item: any) => (
+                {featuredEstates?.map((item: any) => (
                   <div className="col-lg-3" key={item.estate_id}>
                     <Link
                       href={`/estate/${item.estate_slug}`}
@@ -53,10 +60,10 @@ export default function LandPage({
                           <img src={item.image} alt={item.estate_name} />
                         </div>
                         <div className="info_content">
-                        <div className="title_logo">
-    <h4>{item.estate_name}</h4>
-    <img src={item.logo} alt={item.estate_name} />
-  </div>
+                          <div className="title_logo">
+                            <h4>{item.estate_name}</h4>
+                            <img src={item.logo} alt={item.estate_name} />
+                          </div>
                           <p className="location">
                             <i className="icon icon-mapPin"></i>
                             {item.suburb}, {item.state_code}
@@ -99,7 +106,6 @@ export default function LandPage({
               Browse Land for Sale By Region
             </h2>
             "
-             
             <div className="row g-4 justify-content-center">
               {regions.regions.map((item: any) => (
                 <div className="col-12 col-sm-6 col-lg-3" key={item.id}>
@@ -124,140 +130,144 @@ export default function LandPage({
           </div>
         </section>
       )}
- {/* Featured land Listings */}
-      <section className="flat-section slider_new flat-categories-1 arrow_shadow bg_color_3">
-        <div className="container">
-          <div className="box-title style-1 wow fadeInUp">
-            <div className="row">
-              {landList?.count > 0 && (
-                <div className="col-lg-9">
-                  <div className="row">
-                    <div className="col-lg-12">
-                      <h3 className="title text-start">
+      {/* Featured land Listings */}
+      {featuredLands?.count > 0 && (
+        <section className="flat-section slider_new flat-categories-1 arrow_shadow bg_color_3">
+          <div className="container">
+            <div className="box-title style-1 wow fadeInUp">
+              <div className="row">
+                <>
+                  <div className="col-lg-9">
+                    <div className="row">
+                      <div className="col-lg-12">
+                        <h3 className="title text-start">
                           Featured Land Listings in {stateCode?.toUpperCase()}
-                      </h3>
-                    </div>
+                        </h3>
+                      </div>
 
-                    {/* Card 1 */}
-                    {landList.data.map((item: any) => (
-                      <div className="col-lg-4" key={item.land_id}>
-                        <Link
-                          href={`/land/${item.land_slug}`}
-                          className="homelengo-categories"
-                        >
-                          <div className="listing-card">
-                            <div className="image_card">
-                              <img src={item.image} alt={item.land_title} />
-                            </div>
-                            <div className="info_content">
-                              <h4>{item.land_address}</h4>
-                              <p className="location">
-                                <i className="icon icon-mapPin"></i>{" "}
-                                {item.suburb} {item.pincode}
-                              </p>
-                              <div className="price">
-                                <span className="price_data">
-                                  {" "}
-                                  {item.price}
-                                </span>
-                                <button className="btn-primary">
-                                  View Details{" "}
-                                  <i className="icon icon-arr-r"></i>
-                                </button>
+                      {/* Card 1 */}
+                      {featuredLands.data.map((item: any) => (
+                        <div className="col-lg-4" key={item.land_id}>
+                          <Link
+                            href={`/land/${item.land_slug}`}
+                            className="homelengo-categories"
+                          >
+                            <div className="listing-card">
+                              <div className="image_card">
+                                <img src={item.image} alt={item.land_title} />
+                              </div>
+                              <div className="info_content">
+                                <h4>{item.land_address}</h4>
+                                <p className="location">
+                                  <i className="icon icon-mapPin"></i>{" "}
+                                  {item.suburb} {item.pincode}
+                                </p>
+                                <div className="price">
+                                  <span className="price_data">
+                                    {" "}
+                                    {item.price}
+                                  </span>
+                                  <button className="btn-primary">
+                                    View Details{" "}
+                                    <i className="icon icon-arr-r"></i>
+                                  </button>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </Link>
-                      </div>
-                    ))}
+                          </Link>
+                        </div>
+                      ))}
 
-                    {/* Button */}
-                    {/* <div className="col-lg-12">
+                      {/* Button */}
+                      {/* <div className="col-lg-12">
                       <Link href="land" className="all-listing-button">
                         View All Land <i className="icon icon-arr-r"></i>
                       </Link>
                     </div> */}
+                    </div>
                   </div>
-                </div>
-              )}
 
-              {/* Sidebar */}
-              <div className="col-lg-3">
-                <div className="side-sticky-img">
-                  <img src="/images/sidebar-image-03.png" alt="" />
-                </div>
+                  {/* Sidebar */}
+                  <div className="col-lg-3">
+                    <div className="side-sticky-img">
+                      <img src="/images/sidebar-image-03.png" alt="" />
+                    </div>
+                  </div>
+                </>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
       {/* Latest land Listings */}
-      <section className="flat-section slider_new flat-categories-1 arrow_shadow bg_color_3">
-        <div className="container">
-          <div className="box-title style-1 wow fadeInUp">
-            <div className="row">
-              {landList?.count > 0 && (
-                <div className="col-lg-9">
-                  <div className="row">
-                    <div className="col-lg-12">
-                      <h3 className="title text-start">
-                        Latest Land Listings in {stateCode?.toUpperCase()}
-                      </h3>
-                    </div>
+      {nonFeaturedLands?.length > 0 && (
+        <section className="flat-section slider_new flat-categories-1 arrow_shadow bg_color_3">
+          <div className="container">
+            <div className="box-title style-1 wow fadeInUp">
+              <div className="row">
+                <>
+                  <div className="col-lg-9">
+                    <div className="row">
+                      <div className="col-lg-12">
+                        <h3 className="title text-start">
+                          Latest Land Listings in {stateCode?.toUpperCase()}
+                        </h3>
+                      </div>
 
-                    {/* Card 1 */}
-                    {landList.data.map((item: any) => (
-                      <div className="col-lg-4" key={item.land_id}>
-                        <Link
-                          href={`/land/${item.land_slug}`}
-                          className="homelengo-categories"
-                        >
-                          <div className="listing-card">
-                            <div className="image_card">
-                              <img src={item.image} alt={item.land_title} />
-                            </div>
-                            <div className="info_content">
-                              <h4>{item.land_address}</h4>
-                              <p className="location">
-                                <i className="icon icon-mapPin"></i>{" "}
-                                {item.suburb} {item.pincode}
-                              </p>
-                              <div className="price">
-                                <span className="price_data">
-                                  {" "}
-                                  {item.price}
-                                </span>
-                                <button className="btn-primary">
-                                  View Details{" "}
-                                  <i className="icon icon-arr-r"></i>
-                                </button>
+                      {/* Card 1 */}
+                      {nonFeaturedLands.map((item: any) => (
+                        <div className="col-lg-4" key={item.land_id}>
+                          <Link
+                            href={`/land/${item.land_slug}`}
+                            className="homelengo-categories"
+                          >
+                            <div className="listing-card">
+                              <div className="image_card">
+                                <img src={item.image} alt={item.land_title} />
+                              </div>
+                              <div className="info_content">
+                                <h4>{item.land_address}</h4>
+                                <p className="location">
+                                  <i className="icon icon-mapPin"></i>{" "}
+                                  {item.suburb} {item.pincode}
+                                </p>
+                                <div className="price">
+                                  <span className="price_data">
+                                    {" "}
+                                    {item.price}
+                                  </span>
+                                  <button className="btn-primary">
+                                    View Details{" "}
+                                    <i className="icon icon-arr-r"></i>
+                                  </button>
+                                </div>
                               </div>
                             </div>
-                          </div>
+                          </Link>
+                        </div>
+                      ))}
+
+                      {/* Button */}
+                      <div className="col-lg-12">
+                        <Link href="land" className="all-listing-button">
+                          View All Land <i className="icon icon-arr-r"></i>
                         </Link>
                       </div>
-                    ))}
-
-                    {/* Button */}
-                    <div className="col-lg-12">
-                      <Link href="land" className="all-listing-button">
-                        View All Land <i className="icon icon-arr-r"></i>
-                      </Link>
                     </div>
                   </div>
-                </div>
-              )}
 
-              {/* Sidebar */}
-              <div className="col-lg-3">
-                <div className="side-sticky-img">
-                  <img src="/images/sidebar-image-03.png" alt="" />
-                </div>
+                  {/* Sidebar */}
+                  <div className="col-lg-3">
+                    <div className="side-sticky-img">
+                      <img src="/images/sidebar-image-03.png" alt="" />
+                    </div>
+                  </div>
+                </>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </>
   );
 }
