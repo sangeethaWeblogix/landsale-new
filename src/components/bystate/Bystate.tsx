@@ -158,10 +158,17 @@ export default function LandPage({
                               </div>
                               <div className="info_content">
                                 <h4>{item.land_address}</h4>
+                                 <div className="title_logo">
+
+
                                 <p className="location">
                                   <i className="icon icon-mapPin"></i>{" "}
                                   {item.suburb} {item.pincode}
                                 </p>
+                                 <p className="location">
+                                  {item.listing_owner_type}
+                                </p>
+                                  </div>
                                 <div className="price">
                                   <span className="price_data">
                                     {" "}
@@ -227,10 +234,17 @@ export default function LandPage({
                               </div>
                               <div className="info_content">
                                 <h4>{item.land_address}</h4>
+                                  <div className="title_logo">
+
+
                                 <p className="location">
                                   <i className="icon icon-mapPin"></i>{" "}
                                   {item.suburb} {item.pincode}
                                 </p>
+                                 <p className="location">
+                                  {item.listing_owner_type}
+                                </p>
+                                  </div>
                                 <div className="price">
                                   <span className="price_data">
                                     {" "}

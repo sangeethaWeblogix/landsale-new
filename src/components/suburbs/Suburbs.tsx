@@ -238,6 +238,8 @@ export default function LandPage({
                     )}
 
                     {townhouseLand.length > 0 && (
+                      <>
+                      
                       <div className="row">
                         <div className="col-lg-12">
                           <h3 className="title text-start">
@@ -304,15 +306,17 @@ export default function LandPage({
                           </button>
                         </div>
                       </div>
-                    )}
-                  </div>
-
-                  {/* Sidebar */}
-                  <div className="col-lg-3">
+                        <div className="col-lg-3">
                     <div className="side-sticky-img">
                       <img src="/images/sidebar-image-03.png" alt="" />
                     </div>
                   </div>
+                  </>
+                    )}
+                  </div>
+
+                  {/* Sidebar */}
+                
                 </div>
               </div>
             </div>
