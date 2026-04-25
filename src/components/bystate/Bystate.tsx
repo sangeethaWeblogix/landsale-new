@@ -105,7 +105,7 @@ export default function LandPage({
             <h2 className="browse-region-title">
               Browse Land for Sale By Region
             </h2>
-            "
+            
             <div className="row g-4 justify-content-center">
               {regions.regions.map((item: any) => (
                 <div className="col-12 col-sm-6 col-lg-3" key={item.id}>
