@@ -168,7 +168,7 @@ export default function LandListings({
                                   <i className="icon icon-mapPin"></i>{" "}
                                   {item.suburb} {item.pincode}
                                 </p>
-                                 <p className="location">
+                                  <p className="owner_name">
                                   {item.listing_owner_name}
                                 </p>
                                   </div>
