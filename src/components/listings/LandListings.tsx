@@ -169,7 +169,7 @@ export default function LandListings({
                                   {item.suburb} {item.pincode}
                                 </p>
                                  <p className="location">
-                                  {item.listing_owner_type}
+                                  {item.listing_owner_name}
                                 </p>
                                   </div>
                               <div className="price">
