@@ -203,8 +203,8 @@ export default function LandPage({
                                   <i className="icon icon-mapPin"></i>{" "}
                                   {item.suburb} {item.pincode}
                                 </p>
-                                 <p className="location">
-                                  {item.listing_owner_type}
+                                  <p className="owner_name">
+                                  {item.listing_owner_name}
                                 </p>
                                   </div>
                                 <div className="price">
@@ -279,8 +279,8 @@ export default function LandPage({
                                   <i className="icon icon-mapPin"></i>{" "}
                                   {item.suburb} {item.pincode}
                                 </p>
-                                 <p className="location">
-                                  {item.listing_owner_type}
+                                  <p className="owner_name">
+                                  {item.listing_owner_name}
                                 </p>
                                   </div>
                                 <div className="price">

@@ -19,7 +19,7 @@ export const API_ENDPOINTS = {
   EstateList: "/estate_list",
   StateBasedRegion: "/state_based_region",
   RegionBasedSuburb: "/region_based_suburb",
-  SuburbBasedList: "/suburb_listings",
+   SuburbBasedList: "/suburb_listings",
   LandList: "/land_list",
   LandDetail: "/land_detail",
   EstateDetails: "/estate_details",
