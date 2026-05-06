@@ -1,9 +1,24 @@
-.title_logo {
+ .title_logo {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 8px;
 }
 
+.title_logo .location {
+  margin: 0;
+  white-space: nowrap;      /* ← Location wrap ஆகாது */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 0;           /* ← Location குறுகாது */
+}
+
+.title_logo .owner_name {
+  margin: 0;
+  text-align: right;
+  word-break: break-word;   /* ← Owner name மட்டும் wrap ஆகும் */
+  flex-shrink: 1;           /* ← Owner name குறுங்கும், wrap ஆகும் */
+}
 .title_logo h4 {
   margin: 0;
   font-size: 18px;

@@ -1,13 +1,49 @@
 "use client";
+ 
 import { useState, useEffect } from "react";
 import Link from "../NavLink";
 import Image from "next/image";
 import "./header.css";
 import { STATE_NAMES } from "@/config";
+import { useRouter } from "next/navigation";
+
+interface Suggestion {
+  label: string;
+  short: string;
+  uri: string;
+}
+
+interface LocationSearchResponse {
+  state_only: {
+    key: string;
+    uri: string;
+    address: string;
+    short_address: string;
+  }[];
+  region_state: {
+    key: string;
+    uri: string;
+    address: string;
+    short_address: string;
+  }[];
+  pincode_location_region_state: {
+    uri: string;
+    address: string;
+    short_address: string;
+  }[];
+}
+
+
 
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isFixed, setIsFixed] = useState(false);
+   const [query, setQuery] = useState("");
+  const [open, setOpen] = useState(false);
+  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+  const [loading, setLoading] = useState(false);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,14 +58,103 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const [query, setQuery] = useState("");
-  const [open, setOpen] = useState(false);
 
-  const handleSearch = () => {
-    console.log("Search:", query);
-    // You can add router push or API here
+  const transformUri = (uri: string, type: "state" | "region" | "suburb"): string => {
+  const parts = uri.split("/");
+  
+  if (type === "state") {
+    // victoria-state → victoria
+    const state = parts[0].replace("-state", "");
+    return `/${state}`;
+  }
+  
+  if (type === "region") {
+    // victoria-state/melbourne-region → victoria/melbourne
+    const state = parts[0].replace("-state", "");
+    const region = parts[1].replace("-region", "");
+    return `/${state}/${region}`;
+  }
+  
+  if (type === "suburb") {
+    // victoria-state/mornington-peninsula-region/arthurs-seat-suburb/3936
+    // → victoria/mornington-peninsula/arthurs-seat-3936
+    const state = parts[0].replace("-state", "");
+    const region = parts[1].replace("-region", "");
+    const suburb = parts[2].replace("-suburb", "");
+    const postcode = parts[3];
+    return `/${state}/${region}/${suburb}-${postcode}`;
+  }
+  
+  return `/${uri}`;
+};
+
+
+ useEffect(() => {
+  if (debounceRef.current) clearTimeout(debounceRef.current);
+
+  if (!query.trim()) {
+    setSuggestions([]);
+    return;
+  }
+
+  debounceRef.current = setTimeout(async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(
+        `/api/lfs/location-search?keyword=${encodeURIComponent(query)}`
+      );
+      const data = await res.json();
+
+      const results: Suggestion[] = [];
+
+      (data.state_only || []).forEach((item: any) => {
+        results.push({
+          label: item.address,
+          short: item.short_address,
+    uri: transformUri(item.uri, "state"),
+        });
+      });
+
+      (data.region_state || []).forEach((item: any) => {
+        results.push({
+          label: item.address,
+          short: item.short_address,
+    uri: transformUri(item.uri, "region"),
+        });
+      });
+
+      (data.pincode_location_region_state || []).forEach((item: any) => {
+        results.push({
+          label: item.address,
+          short: item.short_address,
+uri: transformUri(item.uri, "suburb"),         });
+      });
+
+      setSuggestions(results);
+    } catch (err) {
+      console.error("Search error:", err);
+      setSuggestions([]);
+    } finally {
+      setLoading(false);
+    }
+  }, 300);
+}, [query]);
+
+ const handleSelect = (uri: any) => {
+    setSuggestions([]);
+    setQuery("");
+    setOpen(false);
+    router.push(uri);
   };
 
+  const handleSearch = () => {
+    if (suggestions.length > 0) {
+      handleSelect(suggestions[0].uri);
+    }
+  };
+
+
+  
   return (
     <>
       <header
@@ -85,9 +210,22 @@ const Header = () => {
                         type="text"
                         placeholder="Search suburb, postcode or state"
                         value={query}
-                        onChange={(e) => setQuery(e.target.value)}
+                      onChange={(e) => setQuery(e.target.value)}
                         onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                       />
+                       {(suggestions.length > 0 || loading) && (
+                        <ul className="search-dropdown">
+                          {loading && <li className="search-loading">Searching...</li>}
+                          {!loading &&
+                            suggestions.map((s, i) => (
+                              <li key={i} onClick={() => handleSelect(s.uri)}>
+                                <span className="suggestion-label">{s.label}</span>
+                                {/* <span className="suggestion-short">{s.short}</span> */}
+                              </li>
+                              
+                            ))}
+                        </ul>
+                      )}
                     </div>
 
                     {/* DESKTOP NAV */}
