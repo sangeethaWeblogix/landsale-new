@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from "../NavLink";
 import "./byregion.css";
 import { useState } from "react";
 

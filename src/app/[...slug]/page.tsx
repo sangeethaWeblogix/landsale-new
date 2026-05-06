@@ -52,7 +52,7 @@ export default async function Page({ params }: { params: Params }) {
       ),
       fetch(`${SITE_URL}/api/lfs/state-based-region?state=${state}`),
       fetch(
-        `${SITE_URL}/api/lfs/land-list?state=${state}&limit=6&category=land`,
+        `${SITE_URL}/api/lfs/land-list?state=${state}&limit=24&category=land`,
       ),
     ]);
 
@@ -84,7 +84,7 @@ export default async function Page({ params }: { params: Params }) {
         `${SITE_URL}/api/lfs/estate-list?featured=yes&limit=6&state=${state}&region=${region}`,
       ),
       fetch(
-        `${SITE_URL}/api/lfs/land-list?state=${state}&region=${region}&limit=6&category=land`,
+        `${SITE_URL}/api/lfs/land-list?state=${state}&region=${region}&limit=24&category=land`,
       ),
     ]);
 

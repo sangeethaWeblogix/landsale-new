@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useEffect, useRef } from "react";
 import Map, { Marker } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
-import Link from "next/link";
+import Link from "../NavLink";
 import "./state.css";
 import { MAPBOX_TOKEN, SORT_OPTIONS, STATE_NAMES } from "@/config";
 import ListingSlider from "@/components/sections/ListingSlider";
