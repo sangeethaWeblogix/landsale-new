@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from "../NavLink";
 import "./footer.css";
 import Image from "next/image";
 import { STATE_NAMES } from "@/config";

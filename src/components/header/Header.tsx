@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import Link from "next/link";
+import Link from "../NavLink";
 import Image from "next/image";
 import "./header.css";
 import { STATE_NAMES } from "@/config";
