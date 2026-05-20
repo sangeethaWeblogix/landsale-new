@@ -25,6 +25,7 @@ const Estate = ({ estateDetail }: Props) => {
         isOpen={open}
         onClose={() => setOpen(false)}
         title={estateDetail?.name}
+        landSlug={estateDetail?.slug}
       />
       {/* HERO SECTION */}
       <section className="hero">

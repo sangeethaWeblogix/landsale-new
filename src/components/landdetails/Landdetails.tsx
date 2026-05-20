@@ -15,63 +15,117 @@ type Props = {
 const ListingDetail = ({ landDetail }: Props) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
 
-  const [formData, setFormData] = useState({
+   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
+    postcode: "",
+    message: "",
   });
-
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(null);
+  const [submitMessage, setSubmitMessage] = useState("");
 
-  const handleChange = (e: any) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+ 
+  // ─── Validation (same as EnquiryModal) ───────────────────
+  const validate = () => {
+    const newErrors: Record<string, string> = {};
+
+    // Name - only letters & spaces
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required.";
+    } else if (!/^[a-zA-Z\s]+$/.test(formData.name)) {
+      newErrors.name = "Name must contain only letters.";
+    }
+
+    // Email - must have @
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Enter a valid email address.";
+    }
+
+    // Phone - only numbers, 10 digits
+    if (!formData.phone.trim()) {
+      newErrors.phone = "Phone is required.";
+    } else if (!/^\d{10}$/.test(formData.phone)) {
+      newErrors.phone = "Phone must be 10 digits.";
+    }
+
+    // Postcode - only numbers, 4 digits (optional)
+    if (formData.postcode && !/^\d{4}$/.test(formData.postcode)) {
+      newErrors.postcode = "Postcode must be 4 digits.";
+    }
+
+    return newErrors;
   };
 
-  const handleSubmit = async (e: any) => {
+  // ─── Handle Change (same as EnquiryModal) ─────────────────
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+
+    // Name - block numbers & special chars while typing
+    if (name === "name" && /[^a-zA-Z\s]/.test(value)) return;
+
+    // Phone & Postcode - block non-numeric while typing
+    if ((name === "phone" || name === "postcode") && /\D/.test(value)) return;
+
+    setFormData({ ...formData, [name]: value });
+
+    // Clear error on change
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: "" });
+    }
+  };
+
+  // ─── Handle Submit (same as EnquiryModal) ─────────────────
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitStatus(null);
+
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
     setLoading(true);
-
     try {
-      const postData = new FormData();
-
-      postData.append("_wpcf7", "52118");
-      postData.append("_wpcf7_version", "5.9.3");
-      postData.append("_wpcf7_locale", "en_US");
-      postData.append("_wpcf7_unit_tag", "wpcf7-f3290-p45-o1");
-      postData.append("_wpcf7_container_post", "45");
-
-      postData.append("your-name", formData.name);
-      postData.append("your-email", formData.email);
-      postData.append("your-phone", formData.phone);
-
-      postData.append("product-name", landDetail?.name || "");
-      postData.append("product-sku", landDetail?.sku || "");
-      postData.append("product-category", "land");
-      postData.append("product-price", landDetail?.price || "");
-      postData.append("product-url", window.location.href);
-
-      const res = await fetch(API_ENDPOINTS.EnquiryForm, {
+      const res = await fetch("/api/lfs/land-enquiry", {
         method: "POST",
-        body: postData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          land_slug: landDetail?.slug,
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          postcode: formData.postcode,
+          message: formData.message,
+        }),
       });
 
       const data = await res.json();
 
-      if (data.status === "mail_sent") {
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-        });
+      if (res.ok && data?.success !== false) {
+        setSubmitStatus("success");
+        setSubmitMessage("Enquiry submitted successfully!");
+        setFormData({ name: "", email: "", phone: "", postcode: "", message: "" });
+        setErrors({});
       } else {
+        setSubmitStatus("error");
+        setSubmitMessage(data?.message || "Something went wrong.");
       }
-    } catch (error) {}
-
-    setLoading(false);
+    } catch (err) {
+      setSubmitStatus("error");
+      setSubmitMessage("Network error. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
+
 
   return (
     <section className="wrapper-layout listing-wrapper section">
@@ -230,37 +284,95 @@ const ListingDetail = ({ landDetail }: Props) => {
           </div>
 
           {/* RIGHT FORM */}
-          <div className="col-lg-4">
+           <div className="col-lg-4">
             <div className="enquiry-box">
               <h3>Contact us below.</h3>
 
-              <form onSubmit={handleSubmit}>
-                <input
-                  type="text"
-                  placeholder="Name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                />
-                <input
-                  type="email"
-                  placeholder="Email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
-                <input
-                  type="tel"
-                  placeholder="Phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  required
-                />
+              {/* ── Success / Error Banner ── */}
+              {submitStatus === "success" && (
+                <div className="alert alert-success">✅ {submitMessage}</div>
+              )}
+              {submitStatus === "error" && (
+                <div className="alert alert-error">❌ {submitMessage}</div>
+              )}
+
+              <form className="enquiry-form" onSubmit={handleSubmit} noValidate>
+
+                {/* Name */}
+                <div className="field">
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Name*"
+                    value={formData.name}
+                    onChange={handleChange}
+                    maxLength={50}
+                  />
+                  {errors.name && (
+                    <span className="field-error">{errors.name}</span>
+                  )}
+                </div>
+
+                {/* Email */}
+                <div className="field">
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email*"
+                    value={formData.email}
+                    onChange={handleChange}
+                  />
+                  {errors.email && (
+                    <span className="field-error">{errors.email}</span>
+                  )}
+                </div>
+
+                {/* Phone */}
+                <div className="field">
+                  <input
+                    type="text"
+                    name="phone"
+                    placeholder="Phone*"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    maxLength={10}
+                    inputMode="numeric"
+                  />
+                  {errors.phone && (
+                    <span className="field-error">{errors.phone}</span>
+                  )}
+                </div>
+
+                {/* Postcode */}
+                <div className="field">
+                  <input
+                    type="text"
+                    name="postcode"
+                    placeholder="Postcode"
+                    value={formData.postcode}
+                    onChange={handleChange}
+                    maxLength={4}
+                    inputMode="numeric"
+                  />
+                  {errors.postcode && (
+                    <span className="field-error">{errors.postcode}</span>
+                  )}
+                </div>
+
+                {/* Message */}
+                <div className="field">
+                  <textarea
+                    name="message"
+                    placeholder="Message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    rows={4}
+                     style={{ width: "100%", boxSizing: "border-box" , border: "1px solid #ccc", borderRadius: "8px", padding: "10px" }}
+                  />
+                </div>
+
                 <button type="submit" disabled={loading}>
-                  Enquire Now
+                  {loading ? "Submitting..." : "Enquire Now"}
                 </button>
               </form>
 
