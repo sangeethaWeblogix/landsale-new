@@ -101,7 +101,7 @@ export default function EnquiryModal({ isOpen, onClose, title, landSlug }) {
           email: formData.email,
           phone: formData.phone,
           postcode: formData.postcode,
-          message: formData.message,
+          enquiry_message: formData.message,
         }),
       });
 
