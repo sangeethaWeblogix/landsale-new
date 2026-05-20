@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import SkeletonCard from "@/components/skeleton/SkeletonCard";
-import Link from "next/link";
+import Link from "../NavLink";
 
 type LandListingsProps = {
   stateCode: string;

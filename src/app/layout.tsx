@@ -10,6 +10,7 @@ import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
 import ScrollToTopGlobal from "@/components/navigation/ScrollToTopGlobal";
 import { Suspense } from "react";
+import ProgressBar from "@/components/navigation/ProgressBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,6 +45,7 @@ export default function RootLayout({
       >
         <Suspense fallback={null}>
           <ScrollToTopGlobal />
+           <ProgressBar />
         </Suspense>
         <div id="wrapper">
           <div id="pagee" className="clearfix">

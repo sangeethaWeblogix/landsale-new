@@ -1,7 +1,7 @@
 "use client";
 import { STATE_NAMES } from "@/config";
 import "./bystate.css";
-import Link from "next/link";
+import Link from "../NavLink";
 
 type StateProps = {
   stateCode: string;
@@ -53,7 +53,7 @@ export default function LandPage({
                         <div className="col-lg-3" key={item.estate_id}>
                     <Link
                       href={`/estate/${item.estate_slug}`}
-                      className="homelengo-categories"
+                       className="homelengo-categories"
                     >
                       <div className="listing-card">
                         <div className="image_card">

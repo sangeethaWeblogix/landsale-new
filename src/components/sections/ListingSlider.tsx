@@ -1,5 +1,5 @@
 import { LandListing } from "@/types/apiTypes";
-import Link from "next/link";
+import Link from "../NavLink";
 
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
