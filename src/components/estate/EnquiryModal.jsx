@@ -96,7 +96,7 @@ export default function EnquiryModal({ isOpen, onClose, title, landSlug }) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          land_slug: landSlug,
+          estate_slug: landSlug,
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
