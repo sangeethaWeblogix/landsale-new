@@ -207,7 +207,7 @@ const Estate = ({ estateDetail }: Props) => {
                       <div className="listing-card">
                         <div className="image_card">
                           <img
-                            src={land?.featured_image?.src }
+                            src={land?.featured_image }
                             alt=""
                           />
                         </div>
@@ -221,7 +221,7 @@ const Estate = ({ estateDetail }: Props) => {
                             <span className="price_data">{land.price}</span>
                             <button className="btn-primary">
                               View Details <i className="icon icon-arr-r"></i>
-                              
+
                             </button>
                           </div>
                         </div>
