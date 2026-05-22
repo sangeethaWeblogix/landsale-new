@@ -3,6 +3,8 @@ import Link from "../NavLink";
 
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useState } from "react";
+import EnquiryModal from "../estate/EnquiryModal";
 
 type ListingSliderProps = {
   title?: string;
@@ -10,8 +12,20 @@ type ListingSliderProps = {
 };
 
 export default function ListingSlider({ title, items }: ListingSliderProps) {
+    const [open, setOpen] = useState(false);  
+      const [selectedItem, setSelectedItem] = useState<LandListing | null>(null);
+
   if (!items?.length) return null;
+  
   return (
+    <>
+     <EnquiryModal
+        isOpen={!!selectedItem}
+        onClose={() => setSelectedItem(null)}
+        title={selectedItem?.name}
+        landSlug={selectedItem?.slug}
+      />
+
     <section className="flat-section slider_new flat-categories arrow_shadow pt-0">
       <div className="container">
         {title && (
@@ -37,7 +51,8 @@ export default function ListingSlider({ title, items }: ListingSliderProps) {
           >
             {items.map((item) => (
               <SwiperSlide key={item?.id}>
-                <Link href={`/${item?.slug}`} className="homelengo-categories">
+                  <Link
+                                     href={`/estate/${item.slug}`} className="homelengo-categories">
                   <div className="listing-card">
                     <div className="image_card">
                       <img src={item.image} alt={item.name} />
@@ -57,7 +72,14 @@ export default function ListingSlider({ title, items }: ListingSliderProps) {
                       </div>
                       <div className="buttons">
                         <button className="btn-primary">View Estate</button>
-                        <button className="btn-outline">Enquire</button>
+                        <button className="btn-outline" onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setSelectedItem(item); // ✅ track which item
+                            }}
+                          >
+                          Enquire
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -71,5 +93,6 @@ export default function ListingSlider({ title, items }: ListingSliderProps) {
         </div>
       </div>
     </section>
+    </>
   );
 }
