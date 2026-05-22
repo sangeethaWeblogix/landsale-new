@@ -1,10 +1,10 @@
-"use client";
+ "use client";
 
 import { useState } from "react";
 import { API_ENDPOINTS } from "@/config";
 import "./contact.css";
 
-interface FormData {
+interface ContactFormData {
   name: string;
   email: string;
   phone: string;
@@ -12,7 +12,7 @@ interface FormData {
   message: string;
 }
 
-interface FormErrors {
+interface ContactFormErrors {
   name?: string;
   email?: string;
   phone?: string;
@@ -21,29 +21,47 @@ interface FormErrors {
 }
 
 export default function Contact() {
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<ContactFormData>({
     name: "",
     email: "",
     phone: "",
     postcode: "",
     message: "",
   });
-  const [errors, setErrors] = useState<FormErrors>({});
+  const [errors, setErrors] = useState<ContactFormErrors>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [serverError, setServerError] = useState("");
 
-  const validate = (): FormErrors => {
-    const errs: FormErrors = {};
-    if (!formData.name.trim()) errs.name = "Name is required.";
+  
+
+ const validate = (): ContactFormErrors => {
+    const errs: ContactFormErrors = {};
+
+    if (!formData.name.trim()) {
+      errs.name = "Name is required.";
+    } else if (!/^[a-zA-Z\s]+$/.test(formData.name)) {
+      errs.name = "Name must contain only letters.";
+    }
+
     if (!formData.email.trim()) {
       errs.email = "Email is required.";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       errs.email = "Enter a valid email address.";
     }
-    if (!formData.phone.trim()) errs.phone = "Phone is required.";
-    if (!formData.postcode.trim()) errs.postcode = "Postcode is required.";
+
+    if (!formData.phone.trim()) {
+      errs.phone = "Phone is required.";
+    } else if (!/^\d{10}$/.test(formData.phone)) {
+      errs.phone = "Phone must be 10 digits.";
+    }
+
+    if (formData.postcode && !/^\d{4}$/.test(formData.postcode)) {
+      errs.postcode = "Postcode must be 4 digits.";
+    }
+
     if (!formData.message.trim()) errs.message = "This field is required.";
+
     return errs;
   };
 
@@ -51,8 +69,15 @@ export default function Contact() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
+
+    // Name - block numbers & special chars while typing
+    if (name === "name" && /[^a-zA-Z\s]/.test(value)) return;
+
+    // Phone & Postcode - block non-numeric while typing
+    if ((name === "phone" || name === "postcode") && /\D/.test(value)) return;
+
     setFormData((prev) => ({ ...prev, [name]: value }));
-    if (errors[name as keyof FormErrors]) {
+    if (errors[name as keyof ContactFormErrors]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
   };
@@ -69,26 +94,24 @@ export default function Contact() {
 
     setSubmitting(true);
     try {
-      const body = new FormData();
-      body.append("your-name", formData.name);
-      body.append("your-email", formData.email);
-      body.append("your-phone", formData.phone);
-      body.append("your-postcode", formData.postcode);
-      body.append("your-message", formData.message);
-
-      const res = await fetch(API_ENDPOINTS.EnquiryForm, {
+     const res = await fetch("/api/lfs/contact", {
         method: "POST",
-        body,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          postcode: formData.postcode,
+          message: formData.message,
+        }),
       });
 
       const data = await res.json();
 
-      if (data.status === "mail_sent") {
+      if (res.ok && data?.success !== false) {
         setSubmitted(true);
       } else {
-        setServerError(
-          data.message || "Something went wrong. Please try again."
-        );
+        setServerError(data?.message || "Something went wrong. Please try again.");
       }
     } catch {
       setServerError("Unable to send your message. Please try again later.");
@@ -159,6 +182,7 @@ export default function Contact() {
                 value={formData.phone}
                 onChange={handleChange}
                 autoComplete="tel"
+ 
               />
               {errors.phone && (
                 <span className="contact-error-msg">{errors.phone}</span>
@@ -173,6 +197,8 @@ export default function Contact() {
                 value={formData.postcode}
                 onChange={handleChange}
                 autoComplete="postal-code"
+                  maxLength={4}
+
               />
               {errors.postcode && (
                 <span className="contact-error-msg">{errors.postcode}</span>
@@ -206,5 +232,6 @@ export default function Contact() {
         )}
       </div>
     </section>
+
   );
 }

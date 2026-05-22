@@ -25,6 +25,7 @@ export const API_ENDPOINTS = {
   EstateDetails: "/estate_details",
   FeaturedEnquiryForm: "https://www.admin.landsales.com.au/wp-json/lfs/v1/public/estate-enquiry",
   LandEnquiryForm: "https://www.admin.landsales.com.au/wp-json/lfs/v1/public/enquiry",
+  ContactForm: "https://www.admin.landsales.com.au/wp-json/lfs/v1/public/contact",
 
 };
 
