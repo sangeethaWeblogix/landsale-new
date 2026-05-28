@@ -230,37 +230,47 @@ export const Home = ({
       </section>
 
       {/* FEATURED */}
-      <section className="container">
-        <div className="featured">
-          <Image
-            src={
-              exclusiveListing?.data?.data[0]?.image ||
-              "/images/home_new_featured.jpg"
-            }
-            fill
-            priority
-            alt="Exclusive Listing"
-            className="featured-bg"
-          />
-          <div className="featured-content">
-            <small>
-              <span className="icon icon-star"></span> Sponsored
-            </small>
-            <h3>{exclusiveListing?.data?.data[0]?.name}</h3>
-            <p>{exclusiveListing?.data?.data[0]?.location}</p>
-            <div className="buttons">
-              <button
-                className="btn-primary"
-                onClick={() =>
-                  router.push(`/${exclusiveListing?.data?.data[0]?.slug}`)
-                }
-              >
-                View Estate
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
+ <section className="container">
+  <div className="featured" style={{ position: "relative" }}>
+    
+    <Image
+      src={
+        exclusiveListing?.data?.data[0]?.image ||
+        "/images/home_new_featured.jpg"
+      }
+      fill
+      priority
+      alt="Exclusive Listing"
+      className="featured-bg"
+    />
+
+    {/* ✅ Full area clickable link - image மேல cover பண்ணும் */}
+    <a
+      href={`/estate/${exclusiveListing?.data?.data[0]?.slug}`}
+      style={{
+        position: "absolute",
+        inset: 0,
+        zIndex: 2,
+        cursor: "pointer",
+      }}
+    />
+
+    {/* ✅ Content - link மேல show ஆகும் */}
+    <div className="featured-content" style={{ position: "relative", zIndex: 3 }}>
+      <small>
+        <span className="icon icon-star"></span> Sponsored
+      </small>
+      <h3>{exclusiveListing?.data?.data[0]?.name}</h3>
+      <p>{exclusiveListing?.data?.data[0]?.location}</p>
+      <div className="buttons">
+        <a href={`/estate/${exclusiveListing?.data?.data[0]?.slug}`}>
+          <button className="btn-primary">View Estate</button>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
 
       {/* NEWEST LAND LISTINGS */}
 
