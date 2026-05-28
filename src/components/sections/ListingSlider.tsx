@@ -4,7 +4,7 @@ import Link from "../NavLink";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useState } from "react";
-import EnquiryModal from "../estate/EnquiryModal";
+import EnquiryModal from "./EnquiryModal";
 
 type ListingSliderProps = {
   title?: string;
