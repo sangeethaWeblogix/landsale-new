@@ -1,6 +1,5 @@
 import { LandListing } from "@/types/apiTypes";
-import Link from "../NavLink";
-
+ 
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useState } from "react";
@@ -51,7 +50,7 @@ export default function ListingSlider({ title, items }: ListingSliderProps) {
           >
             {items.map((item) => (
               <SwiperSlide key={item?.id}>
-                  <Link
+                  <a
                                      href={`/estate/${item.slug}`} className="homelengo-categories">
                   <div className="listing-card">
                     <div className="image_card">
@@ -83,7 +82,7 @@ export default function ListingSlider({ title, items }: ListingSliderProps) {
                       </div>
                     </div>
                   </div>
-                </Link>
+                </a>
               </SwiperSlide>
             ))}
           </Swiper>

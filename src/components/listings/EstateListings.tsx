@@ -5,8 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import SkeletonCard from "@/components/skeleton/SkeletonCard";
-import Link from "../NavLink";
-import "./estate.css";
+ import "./estate.css";
 
 type EstateListingsProps = {
   state?: string;
@@ -152,7 +151,7 @@ export default function EstateListings({
                 data?.count > 0 &&
                 data.data.map((item: any) => (
                   <div className="col-lg-4" key={item.estate_id}>
-                    <Link
+                    <a
                       href={`/estate/${item.estate_slug}`}
                       className="homelengo-categories"
                     >
@@ -183,7 +182,7 @@ export default function EstateListings({
                           </div>
                         </div>
                       </div>
-                    </Link>
+                    </a>
                   </div>
                 ))}
 

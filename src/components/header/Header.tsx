@@ -1,8 +1,7 @@
 "use client";
  
 import { useState, useEffect, useRef } from "react";
-import Link from "../NavLink";
-import Image from "next/image";
+ import Image from "next/image";
 import "./header.css";
 import { STATE_NAMES } from "@/config";
 import { useRouter } from "next/navigation";
@@ -171,7 +170,7 @@ uri: transformUri(item.uri, "suburb"),         });
                   <div className="inner-header-left">
                     <div className="logo-box flex">
                       <div className="logo">
-                        <Link href="/">
+                       <a href="/">
                           <Image
                             src="/images/logo.svg"
                             alt="logo"
@@ -186,7 +185,7 @@ uri: transformUri(item.uri, "suburb"),         });
                             width={180}
                             height={50}
                           />
-                        </Link>
+                       </a>
                       </div>
                     </div>
                     {/* DESKTOP SEARCH */}
@@ -237,27 +236,27 @@ uri: transformUri(item.uri, "suburb"),         });
                         >
                           <ul className="navigation ">
                             <li>
-                              <Link href="/">Home</Link>
+                             <a href="/">Home</a>
                             </li>
 
                             <li className="dropdown2">
-                              <Link href="#">Land for sale</Link>
+                             <a href="#">Land for sale</a>
                               <ul>
                                 {STATE_NAMES.map((item) => (
                                   <li key={item.code}>
-                                    <Link href={`/${item.slug}`}>
+                                   <a href={`/${item.slug}`}>
                                       {item.name}
-                                    </Link>
+                                   </a>
                                   </li>
                                 ))}
                               </ul>
                             </li>
 
                             <li>
-                              <Link href="/blog">Blog</Link>
+                             <a href="/blog">Blog</a>
                             </li>
                             <li>
-                              <Link href="/contact">Contact us</Link>
+                             <a href="/contact">Contact us</a>
                             </li>
                           </ul>
                         </div>
@@ -287,14 +286,14 @@ uri: transformUri(item.uri, "suburb"),         });
 
             <nav className="menu-box">
               <div className="nav-logo">
-                <Link href="/">
+               <a href="/">
                   <Image
                     src="/images/logo.svg"
                     alt="nav-logo"
                     width={174}
                     height={44}
                   />
-                </Link>
+               </a>
               </div>
 
               <div className="bottom-canvas">
@@ -302,23 +301,23 @@ uri: transformUri(item.uri, "suburb"),         });
                 <div className="menu-outer">
                   <ul className="navigation clearfix">
                     <li>
-                      <Link href="/">Home</Link>
+                     <a href="/">Home</a>
                     </li>
                     <li className="dropdown2">
-                      <Link href="#">Land for sale</Link>
+                     <a href="#">Land for sale</a>
                       <ul>
                         {STATE_NAMES.map((item) => (
                           <li key={item.code}>
-                            <Link href={`/${item.slug}`}>{item.name}</Link>
+                           <a href={`/${item.slug}`}>{item.name}</a>
                           </li>
                         ))}
                       </ul>
                     </li>
                     <li>
-                      <Link href="/blog">Blog</Link>
+                     <a href="/blog">Blog</a>
                     </li>
                     <li>
-                      <Link href="/contact">Contact us</Link>
+                     <a href="/contact">Contact us</a>
                     </li>
                   </ul>
                 </div>

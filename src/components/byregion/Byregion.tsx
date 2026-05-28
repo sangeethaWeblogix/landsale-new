@@ -1,5 +1,5 @@
 "use client";
-import Link from "../NavLink";
+// import a from "../Nava";
 import "./byregion.css";
 import { useState } from "react";
 
@@ -54,7 +54,7 @@ export default function LandPage({
                 {/* Card 1 */}
                 {featuredEstates?.data?.map((item: any) => (
                   <div className="col-lg-3" key={item.estate_id}>
-                    <Link
+                    <a
                       href={`/estate/${item.estate_slug}`}
                       className="homelengo-categories"
                     >
@@ -82,15 +82,15 @@ export default function LandPage({
                           </div>
                         </div>
                       </div>
-                    </Link>
+                    </a>
                   </div>
                 ))}
 
                 {/* Button */}
                 <div className="col-lg-12">
-                  <Link href="estates" className="all-listing-button">
+                  <a href="estates" className="all-listing-button">
                     View All Estates <i className="icon icon-arr-r"></i>
-                  </Link>
+                  </a>
                 </div>
               </div>
             </div>
@@ -108,7 +108,7 @@ export default function LandPage({
               <div className="row">
                 {visibleSuburbs.map((item: any) => (
                   <div className="col-lg-3" key={item.id}>
-                    <Link
+                    <a
                       href={`/${stateSlug}/${region}/${item.suburb.toLowerCase().replace(/\s+/g, "-")}-${item.postcode}`}
                       className="homelengo-categories"
                     >
@@ -138,7 +138,7 @@ export default function LandPage({
                           </div>
                         </div>
                       </div>
-                    </Link>
+                    </a>
                   </div>
                 ))}
 
@@ -186,7 +186,7 @@ export default function LandPage({
                       {/* Card 1 */}
                       {featuredLands.map((item: any) => (
                         <div className="col-lg-4" key={item.land_id}>
-                          <Link
+                          <a
                             href={`/land/${item.land_slug}`}
                             className="homelengo-categories"
                           >
@@ -219,15 +219,15 @@ export default function LandPage({
                                 </div>
                               </div>
                             </div>
-                          </Link>
+                          </a>
                         </div>
                       ))}
 
                       {/* Button */}
                       {/* <div className="col-lg-12">
-                      <Link href="land" className="all-listing-button">
+                      <a href="land" className="all-listing-button">
                         View All Land <i className="icon icon-arr-r"></i>
-                      </Link>
+                      </a>
                     </div> */}
                     </div>
                   </div>
@@ -262,7 +262,7 @@ export default function LandPage({
                       {/* Card 1 */}
                       {nonFeaturedLands.map((item: any) => (
                         <div className="col-lg-4" key={item.land_id}>
-                          <Link
+                          <a
                             href={`/land/${item.land_slug}`}
                             className="homelengo-categories"
                           >
@@ -295,15 +295,15 @@ export default function LandPage({
                                 </div>
                               </div>
                             </div>
-                          </Link>
+                          </a>
                         </div>
                       ))}
 
                       {/* Button */}
                       <div className="col-lg-12">
-                        <Link href="land" className="all-listing-button">
+                        <a href="land" className="all-listing-button">
                           View All Land <i className="icon icon-arr-r"></i>
-                        </Link>
+                        </a>
                       </div>
                     </div>
                   </div>

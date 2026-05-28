@@ -114,7 +114,7 @@ const Estate = ({ estateDetail }: Props) => {
                   <li>Large, family-sized lots ranging from 370m² to 800m²+</li>
                   <li>Picturesque setting with views of the Blue Mountains</li>
                   <li>Landscaped parks, playgrounds & walking trails</li>
-                  <li>Close to schools, shopping & transport links</li>
+                  <li>Close to schools, shopping & transport as</li>
                 </ul>
               </div>
 
@@ -125,7 +125,7 @@ const Estate = ({ estateDetail }: Props) => {
                   <strong>{estateDetail?.name}</strong> •{" "}
                   {estateDetail?.address}
                 </p>
-                <a href="#" className="map-link">
+                <a href="#" className="map-a">
                   View on Google Maps <i className="icon icon-arr-r"></i>
                 </a>
               </div>

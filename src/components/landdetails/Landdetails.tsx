@@ -257,13 +257,13 @@ const ListingDetail = ({ landDetail }: Props) => {
               <h6 className="mt-2">{landDetail.address}</h6>
             </div>
 
-            {/* LOCATION LINKS */}
+            {/* LOCATION aS */}
             {/* <div className="location-box">
-              <div className="footer-quick-links">
+              <div className="footer-quick-as">
                 <h2 className="footer-title">Location</h2>
 
-                <div className="quick-links-grid">
-                  <a href="#" className="quick-link-card">
+                <div className="quick-as-grid">
+                  <a href="#" className="quick-a-card">
                     <h3>Lot 1147, Riverstone Drive, Mulgoa, NSW</h3>
                     <p>View All Mulgoa Listings</p>
                     <span className="arrow">
@@ -271,7 +271,7 @@ const ListingDetail = ({ landDetail }: Props) => {
                     </span>
                   </a>
 
-                  <a href="#" className="quick-link-card">
+                  <a href="#" className="quick-a-card">
                     <h3>Nearby Estates in the Western Sydney Region</h3>
                     <p>Browse Western Sydney Estates</p>
                     <span className="arrow">

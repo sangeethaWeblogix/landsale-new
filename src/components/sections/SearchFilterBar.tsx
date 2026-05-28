@@ -338,7 +338,7 @@ export default function SearchFilterBar() {
                       {suggestions.region_state.map((item: any, i: number) => (
                         <li
                           key={i}
-                          className="srp-suggestion-link"
+                          className="srp-suggestion-a"
                           onClick={() => {
                             const [stateCodeFromUri, regionSlug] =
                               item.uri.split("/");
@@ -370,7 +370,7 @@ export default function SearchFilterBar() {
                         (item: any, i: number) => (
                           <li
                             key={i}
-                            className="srp-suggestion-link"
+                            className="srp-suggestion-a"
                             onClick={() => {
                               const parts = item.uri.split("/");
 

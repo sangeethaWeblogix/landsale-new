@@ -1,5 +1,5 @@
 "use client";
-import Link from "../NavLink";
+// import a from "../Nava";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "./home.css";
@@ -36,9 +36,9 @@ const SuggestionGroup = ({ title, items }: SuggestionGroupProps) => (
     <ul className="suggestion-list">
       {items?.map((item: any) => (
         <li key={item?.uri}>
-          <Link href={item?.uri} className="suggestion-link">
+          <a href={item?.uri} className="suggestion-a">
             {item?.name}
-          </Link>
+          </a>
         </li>
       ))}
     </ul>
@@ -206,7 +206,7 @@ export const Home = ({
 
           <div className="state-grid">
             {stateCount?.data?.map((item) => (
-              <Link
+              <a
                 key={item?.state}
                 className="state-card"
                 href={`/${getStateSlug(item.state)}`}
@@ -214,7 +214,7 @@ export const Home = ({
                 {item?.state}
                 <br />
                 <span>{item?.count}</span>
-              </Link>
+              </a>
             ))}
           </div>
 
@@ -244,7 +244,7 @@ export const Home = ({
       className="featured-bg"
     />
 
-    {/* ✅ Full area clickable link - image மேல cover பண்ணும் */}
+    {/* ✅ Full area clickable a - image மேல cover பண்ணும் */}
     <a
       href={`/estate/${exclusiveListing?.data?.data[0]?.slug}`}
       style={{
@@ -255,7 +255,7 @@ export const Home = ({
       }}
     />
 
-    {/* ✅ Content - link மேல show ஆகும் */}
+    {/* ✅ Content - a மேல show ஆகும் */}
     <div className="featured-content" style={{ position: "relative", zIndex: 3 }}>
       <small>
         <span className="icon icon-star"></span> Sponsored
@@ -331,7 +331,7 @@ export const Home = ({
             >
               {blogs?.data?.map((item) => (
                 <SwiperSlide key={String(item?.id)}>
-                  <Link
+                  <a
                     href={`/${item?.slug}`}
                     className="flat-blog-item hover-img"
                   >
@@ -342,13 +342,13 @@ export const Home = ({
                       <div className="post-author">
                         <span>{formatDate(item?.date)}</span>
                       </div>
-                      <h5 className="title link">{item?.title}</h5>
+                      <h5 className="title a">{item?.title}</h5>
                       <p
                         className="description"
                         dangerouslySetInnerHTML={{ __html: item?.excerpt }}
                       />
                     </div>
-                  </Link>
+                  </a>
                 </SwiperSlide>
               ))}
             </Swiper>
